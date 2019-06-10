@@ -15,6 +15,7 @@
     $bot->command('help', function ($message) use ($bot) 
     {
         $answer = 'Команды:
+        /start - начало работы с ботом
         /help - вывод справки';
         $bot->sendMessage($message->getChat()->getId(), $answer);
     });
