@@ -35,19 +35,32 @@
 
 
 
-    $bot->command('translit', function ($message) use ($bot) 
+    $bot->command('setmysity', function ($message) use ($bot) 
     {
         $text = $message->getText();
-        $text = translit($text);
-        $param = str_replace('/translit ', '', $text);
-        $answer = 'Неизвестная команда';
+        $answer = 'Write your sity, please....';
+        
 
-        if (isset($param))
-        {
-            $answer = 'Ваш текст: ' . $text . 'Ваш текст на английском: ' . $param;
-        }
         $bot->sendMessage($message->getChat()->getId(), $answer);
+    
     });
+
+    // $bot->command('setmysity', function ($message) use ($bot) 
+    // {
+    //     $text = $message->getText();
+    //     $text = translit($text);
+    //     $param = str_replace('/setmysity ', '', $text);
+    //     $answer = 'Неизвестная команда';
+
+    //     if (isset($param))
+    //     {
+    //         $answer = 'Ваш текст на английском: ' . $param;
+    //     }
+        
+
+    //     $bot->sendMessage($message->getChat()->getId(), $answer);
+    
+    // });
 
 
 
