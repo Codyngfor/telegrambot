@@ -40,7 +40,7 @@
         $answer = 'Неизвестная команда';
         if (isset($param))
         {
-            $url = "https://api.openweathermap.org/data/2.5/weather?id=498817&units=metric&appid=f2fddbc999a6344117a983a2ead391be&lang=ru";
+            $url = "https://api.openweathermap.org/data/2.5/weather?id=498827&units=metric&appid=f2fddbc999a6344117a983a2ead391be&lang=ru";
 
             $contents = file_get_contents($url);
             $weather=json_decode($contents);
