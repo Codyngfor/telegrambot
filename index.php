@@ -15,6 +15,7 @@
     $bot->command('help', function ($message) use ($bot) 
     {
         $answer = 'Команды:
+        /weather - погода на сегодня
         /start - начало работы с ботом
         /help - вывод справки';
         $bot->sendMessage($message->getChat()->getId(), $answer);
@@ -25,9 +26,33 @@
         $text = $message->getText();
         $param = str_replace('/hello ', '', $text);
         $answer = 'Неизвестная команда';
-        if (!empty($param))
+        if (isset($param))
         {
             $answer = 'Привет, ' . $param;
+        }
+        $bot->sendMessage($message->getChat()->getId(), $answer);
+    });
+
+    $bot->command('hello', function ($message) use ($bot) 
+    {
+        $text = $message->getText();
+        $param = str_replace('/weather ', '', $text);
+        $answer = 'Неизвестная команда';
+        if (isset($param))
+        {
+            $url = "https://api.openweathermap.org/data/2.5/weather?id=498817&units=metric&appid=f2fddbc999a6344117a983a2ead391be&lang=ru";
+
+            $contents = file_get_contents($url);
+            $weather=json_decode($contents);
+        
+            $temp_now=$weather->main->temp."°C";
+            $icon=$weather->weather[0]->icon.".png";
+            $today = date("j.m.Y, H:i");
+            $cityname = $weather->name;
+           
+            $answer = $today."<br />".
+            $cityname."<br />".
+            $temp_now."<br />";
         }
         $bot->sendMessage($message->getChat()->getId(), $answer);
     });
