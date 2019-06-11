@@ -15,7 +15,7 @@
     $bot->command('help', function ($message) use ($bot) 
     {
         $answer = 'Команды:
-        /weather - погода на сегодня
+        /weather - weather now
         /start - начало работы с ботом
         /help - вывод справки';
         $bot->sendMessage($message->getChat()->getId(), $answer);
@@ -33,7 +33,7 @@
         $bot->sendMessage($message->getChat()->getId(), $answer);
     });
 
-    $bot->command('hello', function ($message) use ($bot) 
+    $bot->command('weather', function ($message) use ($bot) 
     {
         $text = $message->getText();
         $param = str_replace('/weather ', '', $text);
@@ -50,14 +50,12 @@
             $today = date("j.m.Y, H:i");
             $cityname = $weather->name;
            
-            $answer = $today."<br />".
-            $cityname."<br />".
-            $temp_now."<br />";
+            $answer = $today.", ".$cityname.", ".$temp_now;
         }
         $bot->sendMessage($message->getChat()->getId(), $answer);
     });
 
-$bot->run();
+    $bot->run();
 
 
 ?>
