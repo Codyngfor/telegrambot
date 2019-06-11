@@ -40,17 +40,16 @@
         $answer = 'Неизвестная команда';
         if (isset($param))
         {
-            $url = "https://api.openweathermap.org/data/2.5/weather?id=498827&units=metric&appid=f2fddbc999a6344117a983a2ead391be&lang=ru";
+            $url = "https://api.openweathermap.org/data/2.5/weather?lat= 53.2143500&lon= 63.6246300&units=metric&appid=f2fddbc999a6344117a983a2ead391be&lang=ru";
 
             $contents = file_get_contents($url);
             $weather=json_decode($contents);
-        
+            
             $temp_now=$weather->main->temp."°C";
-            $icon=$weather->weather[0]->icon.".png";
-            $today = date("j.m.Y, H:i");
+            $today = date("j.m.Y, H:i:s");
             $cityname = $weather->name;
            
-            $answer = $today.", ".$cityname.", ".$temp_now;
+            $answer = $today.", <br> ".$cityname.", <br>".$temp_now;
         }
         $bot->sendMessage($message->getChat()->getId(), $answer);
     });
