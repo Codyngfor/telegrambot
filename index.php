@@ -33,6 +33,24 @@
         $bot->sendMessage($message->getChat()->getId(), $answer);
     });
 
+
+
+    $bot->command('translit', function ($message) use ($bot) 
+    {
+        $text = $message->getText();
+        $text = translit($text);
+        $param = str_replace('/translit ', '', $text);
+        $answer = 'Неизвестная команда';
+
+        if (isset($param))
+        {
+            $answer = 'Ваш текст: ' . $text . 'Ваш текст на английском: ' . $param;
+        }
+        $bot->sendMessage($message->getChat()->getId(), $answer);
+    });
+
+
+
     $bot->command('weather', function ($message) use ($bot) 
     {
         $text = $message->getText();
@@ -54,7 +72,17 @@
         $bot->sendMessage($message->getChat()->getId(), $answer);
     });
 
+
     $bot->run();
 
-
+    //functions
+    function translit($s) {
+        $s = (string) $s; // преобразуем в строковое значение
+        $s = str_replace(array("\n", "\r"), " ", $s); // убираем перевод каретки
+        $s = preg_replace("/\s+/", ' ', $s); // удаляем повторяющие пробелы
+        $s = trim($s); // убираем пробелы в начале и конце строки
+        $s = function_exists('mb_strtolower') ? mb_strtolower($s) : strtolower($s); // переводим строку в нижний регистр (иногда надо задать локаль)
+        $s = strtr($s, array('а'=>'a','б'=>'b','в'=>'v','г'=>'g','д'=>'d','е'=>'e','ё'=>'e','ж'=>'j','з'=>'z','и'=>'i','й'=>'y','к'=>'k','л'=>'l','м'=>'m','н'=>'n','о'=>'o','п'=>'p','р'=>'r','с'=>'s','т'=>'t','у'=>'u','ф'=>'f','х'=>'h','ц'=>'c','ч'=>'ch','ш'=>'sh','щ'=>'shch','ы'=>'y','э'=>'e','ю'=>'yu','я'=>'ya','ъ'=>'','ь'=>''));
+        return $s; // возвращаем результат
+      }
 ?>
