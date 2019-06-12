@@ -61,6 +61,9 @@
                 // декодируем json файл
                 $data = json_decode($json,true);
                 
+                // трансформируем русский текст в кирилицу
+                $sityname = translit($sity);
+
                 // перебераем файл для отбора по названию
                 for ($i = 0; $i < count($data); $i++ )
                 {
@@ -80,7 +83,7 @@
                 $cityname = $weather->name;
             
                 $answer = $today.",  ".$cityname.", ".$temp_now;
-                
+
                 $bot->sendMessage($message->getChat()->getId(), $answer);
             }else 
             {
