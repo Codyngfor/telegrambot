@@ -33,39 +33,50 @@
         $bot->sendMessage($message->getChat()->getId(), $answer);
     });
 
-
-
     $bot->command('setmysity', function ($message) use ($bot) 
     {
-
-        // вывод сообщения боту 
-        $bot->sendMessage($message->getChat()->getId(), 'Write your sity, please....');
-
-        // принятие сообщения
         $text = $message->getText();
-
-        // трансформируем русский текст в кирилицу
-        $sityname = translit($text);
-
-        // подключаем json файл
-        $json = file_get_contents('city.list.min.json', true);
-        
-        // декодируем файл
-        $data = json_decode($json,true);
-      
-        // перебераем файл для отбора по названию
-        for ($i = 0; $i < count($data); $i++ )
+        $param = str_replace('/setmysity ', '', $text);
+        $answer = 'Неизвестная команда';
+        if (isset($param))
         {
-          if($sityname == $data[$i]['name']) {
-            $sityname1 = $data[$i]['name'];
-            $sityID = $data[$i]['id']
-            break;
-          }
+            $answer = 'Ваша город: ' . $param;
+            $sity = $text;
         }
-        
-        $bot->sendMessage($message->getChat()->getId(), $sityname1."".$sityID);
-    
+        $bot->sendMessage($message->getChat()->getId(), $answer);
     });
+
+    // $bot->command('setmysity', function ($message) use ($bot) 
+    // {
+
+    //     // вывод сообщения боту 
+    //     $bot->sendMessage($message->getChat()->getId(), 'Write your sity, please....');
+
+    //     // принятие сообщения
+    //     $text = $message->getText();
+
+    //     // трансформируем русский текст в кирилицу
+    //     $sityname = translit($text);
+
+    //     // подключаем json файл
+    //     $json = file_get_contents('city.list.min.json', true);
+        
+    //     // декодируем файл
+    //     $data = json_decode($json,true);
+      
+    //     // перебераем файл для отбора по названию
+    //     for ($i = 0; $i < count($data); $i++ )
+    //     {
+    //       if($sityname == $data[$i]['name']) {
+    //         $sityname1 = $data[$i]['name'];
+    //         $sityID = $data[$i]['id']
+    //         break;
+    //       }
+    //     }
+        
+    //     $bot->sendMessage($message->getChat()->getId(), $sityname1."".$sityID);
+    
+    // });
 
 
 
