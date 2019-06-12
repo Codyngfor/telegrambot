@@ -39,11 +39,11 @@
     $bot->command('setmysity', function ($message) use ($bot) 
     {
         // не нужный код
-        // $answer = ;
+        $answer = 'Write your sity, please....';
         // if ( $answer === 'Write your sity, please....') $success = true;
 
         // вывод сообщения боту 
-        $bot->sendMessage($message->getChat()->getId(), 'Write your sity, please....');
+        $bot->sendMessage($message->getChat()->getId(), $answer);
 
         // // принятие сообщения
         // $text = $message->getText();
