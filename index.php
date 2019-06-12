@@ -46,6 +46,56 @@
         $bot->sendMessage($message->getChat()->getId(), $answer);
     });
 
+    $bot->command('weather', function ($message) use ($bot) 
+    {
+        $text = $message->getText();
+        $param = str_replace('/weather ', '', $text);
+        $answer = 'Неизвестная команда';
+        if (isset($param))
+        {   
+            if (isset($sity))
+            {
+                // подключаем json файл
+                $json = file_get_contents('city.list.min.json', true);
+                
+                // декодируем json файл
+                $data = json_decode($json,true);
+                
+                // перебераем файл для отбора по названию
+                for ($i = 0; $i < count($data); $i++ )
+                {
+                    if($sityname == $data[$i]['name']) {
+                    $sityname1 = $data[$i]['name'];
+                    $sityID = $data[$i]['id']
+                    break;
+                    }
+                }
+                $url = "https://api.openweathermap.org/data/2.5/weather?id=".$sityID."&units=metric&appid=f2fddbc999a6344117a983a2ead391be&lang=ru";
+
+                $contents = file_get_contents($url);
+                $weather = json_decode($contents);
+
+                $temp_now=$weather->main->temp."°C";
+                $today = date("j.m.Y, H:i:s");
+                $cityname = $weather->name;
+            
+                $answer = $today.",  ".$cityname.", ".$temp_now;
+                
+                $bot->sendMessage($message->getChat()->getId(), $answer);
+            }else 
+            {
+                $bot->sendMessage($message->getChat()->getId(), 'Для начала, пожалуйста, установите ваш город с помощью команды: /setmysity ваш город');
+            }
+        }
+       
+    });
+
+
+
+
+
+
+
     // $bot->command('setmysity', function ($message) use ($bot) 
     // {
 
@@ -98,28 +148,6 @@
     
     // });
 
-
-
-    $bot->command('weather', function ($message) use ($bot) 
-    {
-        $text = $message->getText();
-        $param = str_replace('/weather ', '', $text);
-        $answer = 'Неизвестная команда';
-        if (isset($param))
-        {
-            $url = "https://api.openweathermap.org/data/2.5/weather?id=3073170&units=metric&appid=f2fddbc999a6344117a983a2ead391be&lang=ru";
-
-            $contents = file_get_contents($url);
-            $weather = json_decode($contents);
-
-            $temp_now=$weather->main->temp."°C";
-            $today = date("j.m.Y, H:i:s");
-            $cityname = $weather->name;
-           
-            $answer = $today.",  ".$cityname.", ".$temp_now;
-        }
-        $bot->sendMessage($message->getChat()->getId(), $answer);
-    });
 
 
     $bot->run();
