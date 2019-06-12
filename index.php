@@ -67,46 +67,46 @@
 
 
 
-    // $bot->command('setmysity', function ($message) use ($bot) 
-    // {
-    //     $text = $message->getText();
-    //     $text = translit($text);
-    //     $param = str_replace('/setmysity ', '', $text);
-    //     $answer = 'Неизвестная команда';
+    $bot->command('setmysity', function ($message) use ($bot) 
+    {
+        $text = $message->getText();
+        $text = translit($text);
+        $param = str_replace('/setmysity ', '', $text);
+        $answer = 'Неизвестная команда';
 
-    //     if (isset($param))
-    //     {
-    //         $answer = 'Ваш текст на английском: ' . $param;
-    //     }
+        if (isset($param))
+        {
+            $answer = 'Ваш текст на английском: ' . $param;
+        }
         
 
-    //     $bot->sendMessage($message->getChat()->getId(), $answer);
+        $bot->sendMessage($message->getChat()->getId(), $answer);
 
     
-    // });
+    });
 
 
 
-    // $bot->command('weather', function ($message) use ($bot) 
-    // {
-    //     $text = $message->getText();
-    //     $param = str_replace('/weather ', '', $text);
-    //     $answer = 'Неизвестная команда';
-    //     if (isset($param))
-    //     {
-    //         $url = "https://api.openweathermap.org/data/2.5/weather?id=3073170&units=metric&appid=f2fddbc999a6344117a983a2ead391be&lang=ru";
+    $bot->command('weather', function ($message) use ($bot) 
+    {
+        $text = $message->getText();
+        $param = str_replace('/weather ', '', $text);
+        $answer = 'Неизвестная команда';
+        if (isset($param))
+        {
+            $url = "https://api.openweathermap.org/data/2.5/weather?id=3073170&units=metric&appid=f2fddbc999a6344117a983a2ead391be&lang=ru";
 
-    //         $contents = file_get_contents($url);
-    //         $weather = json_decode($contents);
+            $contents = file_get_contents($url);
+            $weather = json_decode($contents);
 
-    //         $temp_now=$weather->main->temp."°C";
-    //         $today = date("j.m.Y, H:i:s");
-    //         $cityname = $weather->name;
+            $temp_now=$weather->main->temp."°C";
+            $today = date("j.m.Y, H:i:s");
+            $cityname = $weather->name;
            
-    //         $answer = $today.",  ".$cityname.", ".$temp_now;
-    //     }
-    //     $bot->sendMessage($message->getChat()->getId(), $answer);
-    // });
+            $answer = $today.",  ".$cityname.", ".$temp_now;
+        }
+        $bot->sendMessage($message->getChat()->getId(), $answer);
+    });
 
 
     $bot->run();
