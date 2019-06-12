@@ -48,11 +48,11 @@
 
     $bot->command('weather', function ($message) use ($bot) 
     {
-        $text = $message->getText();
-        $param = str_replace('/weather ', '', $text);
-        $answer = 'Неизвестная команда';
-        if (isset($param))
-        {   
+        // $text = $message->getText();
+        // $param = str_replace('/weather ', '', $text);
+        // $answer = 'Неизвестная команда';
+        // if (isset($param))
+        // {   
             if (isset($sity))
             {
                 // подключаем json файл
@@ -85,11 +85,11 @@
                 $answer = $today.",  ".$cityname.", ".$temp_now;
 
                 $bot->sendMessage($message->getChat()->getId(), $answer);
-            }else 
+            }else if (empty($sity))
             {
                 $bot->sendMessage($message->getChat()->getId(), 'Для начала, пожалуйста, установите ваш город с помощью команды: /setmysity ваш город');
             }
-        }
+        // }
        
     });
 
