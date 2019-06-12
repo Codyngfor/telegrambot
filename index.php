@@ -41,7 +41,7 @@
         if (isset($param))
         {
             $answer = 'Ваша город: ' . $param;
-            $sity = $text;
+            $sity = $param;
         }
         $bot->sendMessage($message->getChat()->getId(), $answer);
     });
