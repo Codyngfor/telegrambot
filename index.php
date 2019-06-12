@@ -1,5 +1,6 @@
 <?php
     require("vendor/autoload.php");
+    $json = require("current.city.list.json");
 
     $token = "875474339:AAG5Jix5QEX4kikIomawJDDViebeO68bilA";
     $bot = new \TelegramBot\Api\Client($token);
@@ -37,13 +38,37 @@
 
     $bot->command('setmysity', function ($message) use ($bot) 
     {
-        $text = $message->getText();
-        $answer = 'Write your sity, please....';
-        
+        // не нужный код
+        // $answer = ;
+        // if ( $answer === 'Write your sity, please....') $success = true;
 
-        $bot->sendMessage($message->getChat()->getId(), $answer);
+        // вывод сообщения боту 
+        $bot->sendMessage($message->getChat()->getId(), 'Write your sity, please....');
+
+        // // принятие сообщения
+        // $text = $message->getText();
+
+        // // трансформируем русский текст в кирилицу
+        // $sityname = translit($text);
+
+        // // подключаем json файл
+        // $json = file_get_contents('city.list.min.json', true);
+        
+        // // декодируем файл
+        // $data = json_decode($json,true);
+      
+        // // перебераем файл для отбора по названию
+        // for ($i = 0; $i < count($data); $i++ )
+        // {
+        //   if($sityname == $data[$i]['name']) {
+        //     $sityname1 = $data[$i]['name'];
+        //     break;
+        //   }
+        // }
     
     });
+
+
 
     // $bot->command('setmysity', function ($message) use ($bot) 
     // {
@@ -59,6 +84,7 @@
         
 
     //     $bot->sendMessage($message->getChat()->getId(), $answer);
+
     
     // });
 
