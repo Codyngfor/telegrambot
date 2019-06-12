@@ -38,9 +38,8 @@
     $bot->command('setmysity', function ($message) use ($bot) 
     {
 
-        $answer = 'Write your sity, please....';
         // вывод сообщения боту 
-        $bot->sendMessage($message->getChat()->getId(), $answer);
+        $bot->sendMessage($message->getChat()->getId(), 'Write your sity, please....');
 
         // // принятие сообщения
         // $text = $message->getText();
